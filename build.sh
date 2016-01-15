@@ -1,1 +1,2 @@
-docker build -t all-spark-notebook .
+docker build -t datalab-notebook .
+#
