@@ -26,7 +26,7 @@ Most of the following text is copied directly from the page linked above.
 * Spark 1.5.1 for use in local mode or to connect to a cluster of Spark workers
 * Mesos client 0.22 binary that can communicate with a Mesos master
 * Unprivileged user `jovyan` (uid=1000, configurable, see options) in group `users` (gid=100) with ownership over `/home/jovyan` and `/opt/conda`
-* [tini](http://github.com/krallin/tini) as the container entrypoint and [start-notebook.sh](../minimal-notebook/start-notebook.sh) as the default command
+* [tini](https://github.com/krallin/tini) as the container entrypoint and [start-notebook.sh](../minimal-notebook/start-notebook.sh) as the default command
 * Options for HTTPS, password auth, and passwordless `sudo`
 
 ## Create the container
@@ -85,7 +85,7 @@ won't be the same as yours.
 
 Finally, point your browser to
 ```
-http://IP_ADDR:8888
+https://IP_ADDR:8888
 ```
 where `IP_ADDR` is the result of the command
 ```
@@ -93,13 +93,11 @@ $ docker-machine ip datalab
 ```
 then enter the password you specified 
 in the previous `docker run` command.
-_Safari_ seems to have intermittent problems connecting to a kernel. 
-If that happens try _Chrome_. 
 
 In your browser you should see the Jupyter logo in the 
 upper left corner of the page. 
 
-Continue on to any of the following sections to run sample commands. 
+Continue with any of the following sections to run sample commands. 
 
 ## Run some examples
 
