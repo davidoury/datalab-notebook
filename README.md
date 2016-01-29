@@ -32,6 +32,7 @@ Most of the following text is copied directly from the page linked above.
 ## Documentation links
 
 - [Spark 1.5.1](https://spark.apache.org/docs/1.5.1/)
+- [Spark 1.5.1 Quick Start](https://spark.apache.org/docs/1.5.1/quick-start.html) (start here)
 
 ## Create the container
 
@@ -89,7 +90,7 @@ won't be the same as yours.
 
 Finally, point your browser to
 ```
-https://IP_ADDR:8888
+http://IP_ADDR:8888
 ```
 where `IP_ADDR` is the result of the command
 ```
