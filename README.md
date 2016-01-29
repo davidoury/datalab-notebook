@@ -1,8 +1,21 @@
-# Jupyter Notebook Python, Scala, R, Spark, Mesos Stack
+## Data Lab notebook = Jupyter notebook with Python, Scala, R, Spark and Mesos 
+
+For now the "Data Lab notebook" is the the docker container called 
+`jupyter/all-spark-notebook`. 
+In time I hope to add to and modify the container to fit 
+our needs at the Data Lab, 
+but for now this is exactly what we need. 
+It is part of the GitHub repository 
+https://github.com/jupyter/docker-stacks. 
+Look for the folder `all-spark-notebook`
+or follow [this link](https://github.com/jupyter/docker-stacks/tree/master/all-spark-notebook).
+
+To install and then use the notebook follow the directions 
+in the section titled [Create the container](#create-the-container) below.
+
+Most of the following text is copied directly from the page linked above.
 
 ## What it Gives You
-
-x
 
 * Jupyter Notebook 4.0.x
 * Conda Python 3.x and Python 2.7.x environments
@@ -16,13 +29,85 @@ x
 * [tini](https://github.com/krallin/tini) as the container entrypoint and [start-notebook.sh](../minimal-notebook/start-notebook.sh) as the default command
 * Options for HTTPS, password auth, and passwordless `sudo`
 
-## Basic Use
+## Create the container
 
-The following command starts a container with the Notebook server listening for HTTP connections on port 8888 without authentication configured.
+To run this notebook with Docker open a terminal window (on Mac) 
+or a command shell (on Windows) and run the remaining commands in this section. 
+
+First, create a docker machine named `datalab`. 
+```
+$ docker-machine create --driver=virtualbox --virtualbox-memory=2048 datalab
+```
+
+Second, setup the Docker environment in your terminal/shell.
+```
+$ eval "$(docker-machine env datalab)"
+```
+
+Third, in the command below, 
+change `YOURPASS` to some password of your choosing, and 
+change `NOTEBOOKDIR` to an existing directory where you 
+plan to save your notebooks. 
+Run this command
+```
+$ docker run -d -p 8888:8888  -e USE_HTTPS=yes -e PASSWORD="YOURPASS"  -v NOTEBOOKDIR:/home/jovyan/work  jupyter/all-spark-notebook
+```
+which will run the docker container `jupyter/all-spark-notebook` in your Docker/VirtualBox machine named `datalab`.
+It will take some time to create the container. 
+If the output ends with 
+```
+... no space left on device
+```
+then run
+```
+$ docker-machine rm datalab
+```
+answer `yes` to the prompt and rerun the `docker-machine create` command above, but use `4096` in place of `2048`. 
+
+When the container has been created successfully you should see something like this: 
+```
+Digest: sha256:e12307fc1f339eacab758088359aa6c2b84f8d0dee9fe617de6845af56f091f9
+Status: Downloaded newer image for jupyter/all-spark-notebook:latest
+8e7d27a3f8e14710a6d8c9dac52c5c20ae6406088ad0ce7c38a783ee1bfca470
+```
+though the seemingly random letters and numbers above 
+won't be the same as yours. 
+
+Finally, point your browser to
+```
+https://IP_ADDR:8888
+```
+where `IP_ADDR` is the result of the command
+```
+$ docker-machine ip datalab
+```
+then enter the password you specified 
+in the previous `docker run` command.
+
+In your browser you should see the Jupyter logo in the upper left corner of the page. 
+
+Continue on to any of the following sections to run sample commands. 
+
+## Run some examples
+
+From the home screen create a Python 3 notebook 
+
+## Debugging
+
+clean all containers: 
+```
+docker ps -a | sed '1 d' | awk '{print $1}' | xargs -L1 docker rm
+```
+
+clean all images: 
+```
+docker images -a | sed '1 d' | awk '{print $3}' | xargs -L1 docker rmi -f
+```
 
 ```
-docker run -d -p 8888:8888 jupyter/all-spark-notebook
+https://www.docker.com/products/docker-toolbox
 ```
+
 
 ## Using Spark Local Mode
 
@@ -202,16 +287,6 @@ println(sc.master)
 val rdd = sc.parallelize(0 to 99999999)
 rdd.sum()
 ```
-
-## Notebook Options
-
-You can pass [Jupyter command line options](http://jupyter.readthedocs.org/en/latest/config.html#command-line-arguments) through the [`start-notebook.sh` command](https://github.com/jupyter/docker-stacks/blob/master/minimal-notebook/start-notebook.sh#L15) when launching the container. For example, to set the base URL of the notebook server you might do the following:
-
-```
-docker run -d -p 8888:8888 jupyter/all-spark-notebook start-notebook.sh --NotebookApp.base_url=/some/path
-```
-
-You can use this same approach to sidestep the `start-notebook.sh` script and run another command entirely. But be aware that this script does the final `su` to the `jovyan` user before running the notebook server, after doing what is necessary for the `NB_USER` and `GRANT_SUDO` features documented below.
 
 ## Docker Options
 
