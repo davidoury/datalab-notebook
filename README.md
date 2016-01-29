@@ -29,6 +29,10 @@ Most of the following text is copied directly from the page linked above.
 * [tini](https://github.com/krallin/tini) as the container entrypoint and [start-notebook.sh](../minimal-notebook/start-notebook.sh) as the default command
 * Options for HTTPS, password auth, and passwordless `sudo`
 
+## Documentation links
+
+- [Spark 1.5.1](https://spark.apache.org/docs/1.5.1/)
+
 ## Create the container
 
 Download and install the _Docker Toolbox_. 
