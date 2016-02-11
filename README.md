@@ -1,6 +1,6 @@
 ## Data Lab notebook = Jupyter notebook with Python, Scala, R, Spark and Mesos 
 
-For now the "Data Lab notebook" is the the docker container called 
+For now the "Data Lab notebook" is the docker container 
 `jupyter/pyspark-notebook`. 
 In time I hope to add to and modify the container to fit 
 our needs at the Data Lab, 
@@ -12,6 +12,7 @@ or follow [this link](https://github.com/jupyter/docker-stacks/tree/master/pyspa
 
 To install and then use the notebook follow the directions 
 in the section titled [Create the container](#create-the-container) below.
+
 
 Most of the following text is copied directly from the page linked above.
 
@@ -35,6 +36,33 @@ Most of the following text is copied directly from the page linked above.
 - [Spark 1.5.1 Quick Start](https://spark.apache.org/docs/1.5.1/quick-start.html) (start here)
 
 ## Create the container
+
+Use an ethernet connection if possible. 
+
+Download and install:
+
+1. VirtualBox 
+1. VirtualBox extensions
+1. Vagrant
+1. GitHub Desktop
+
+Windows: run the _Git Shell_ (there should be an icon on your desktop). 
+
+Mac: run the terminal program
+
+Linux: create a console/shell window
+
+1. `git clone ...`
+1. `cd datalab`
+1. `vagrant box update`
+1. `vagrant up`
+1. `vagrant ssh datalab`
+1. `sudo bash`
+1. `apt-get update`
+1. `curl -fsSL https://get.docker.com/ | sh`
+1. `usermod -aG docker vagrant`
+
+## PLEASE IGNORE THIS SECTION
 
 Download and install the _Docker Toolbox_. 
 See https://www.docker.com/products/docker-toolbox. 
