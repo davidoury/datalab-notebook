@@ -2,7 +2,7 @@
 
 This notebook is based on the Docker container
 `jupyter/pyspark-notebook` 
-which is a Jupyter notebook with Python and Spark. 
+which is a Jupyter notebook from which you can run Python and Spark. 
 
 For details on that notebook see 
 https://github.com/jupyter/docker-stacks. 
@@ -26,7 +26,7 @@ Download and install (in this order):
 1. VirtualBox 
 1. VirtualBox extensions
 1. Vagrant
-1. GitHub Desktop
+1. GitHub Desktop (Windows only)
 
 Open a console/shell:
 
@@ -42,14 +42,16 @@ $ git clone https://github.com/davidoury/datalab-notebook
 Change to the `datalab-notebook` sub-directory (just created) and create the virtual box called `datalab`:
 ```
 $ cd datalab-notebook
-$ vagrant up
+$ vagrant up datalab
 ```
 
+Now run a shell/console on the newly created `datalab` virtual box:
 ```
 $ vagrant ssh datalab
 ```
 
-The prompt will change as you are now running a shell/console inside the virtual box you just created, which is called `datalab`.
+The prompt will change as you are now running a shell/console 
+_inside_ the virtual box you just created, called `datalab`.
 
 Become the super-user with this command.
 
@@ -69,14 +71,33 @@ Download and install the Docker program in the virtual box.
 curl -fsSL https://get.docker.com/ | sh
 ```
 
-Add the `vagrant` user to the `docker` group so you can run docker commands as that user.
+Add the `vagrant` user to the `docker` group so the `vagrant` user can run docker commands.
 ```
 usermod -aG docker vagrant
 ```
-1. `docker run hello-world`
-1. `docker run -d -p 8888:8888  -e PASSWORD="YOURPASS"  -v /vagrant:/home/jovyan/work  jupyter/pyspark-notebook`
 
-docker run -d -p 8888:8888 -p 8080:8080 -p 4040:4040 -p 7077:7077 -e PASSWORD="hi"  -v /vagrant:/home/jovyan/work  jupyter/pyspark-notebook
+Test your setup by running:
+```
+$ docker run hello-world
+```
+If you see the text `Hello from Docker` somewhere then all is well. 
+
+```
+$ tar Pxvf /vagrant/cron.d.tar.gz
+```
+
+Now run: 
+```
+$ /etc/cron.d/docker.sh
+```
+
+Point your browser to http://10.10.10.10:8888. 
+
+When you are done working shutdown the `datalab` virtual box from _VirtuaBox_
+or from a console/shell in the `datalab-notebook` directory:
+```
+vagrant halt datalab
+```
 
 
 ## PLEASE IGNORE THIS SECTION
