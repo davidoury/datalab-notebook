@@ -1,0 +1,1 @@
+@reboot vagrant /etc/cron.d/docker.sh
