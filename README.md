@@ -1,13 +1,23 @@
 ## Data Lab notebook 
 
-This notebook is based on the Docker container
+This _Data Lab_ notebook is based on the Docker container
 `jupyter/pyspark-notebook` 
 which is a Jupyter notebook from which you can run Python and Spark. 
-
-For details on that notebook see 
+For details on the container see 
 https://github.com/jupyter/docker-stacks. 
 Look for the folder `pyspark-notebook`
 or follow [this link](https://github.com/jupyter/docker-stacks/tree/master/pyspark-notebook).
+
+In order that this notebook works on as many OSes as possible, I've taken the approach of:
+
+1. Creating an Ubuntu virtual box with Vagrant
+1. Running Docker from within this virtual box 
+
+The primary reason for this setup is that the host operating system (Mac, Windows 7/8/10) 
+needs only to be able to complete the first step and allow the user to log into the virtual box. 
+In addition, the configuration and management of the virtual box is (should be?) identical
+regardless of host operating system.
+I hope to avoid many headaches previously encountered.
 
 To install and then use the notebook follow the directions 
 in the [Create](#create) section below.
@@ -19,14 +29,18 @@ in the [Create](#create) section below.
 
 ## Create 
 
-Use an ethernet connection if possible. 
+This section includes instructions to build a Jupyter notebook environment 
+in which you can run Python and Spark. 
+This entails many downloads so using an ethernet connection will make them quicker and potentially less problematic.
+
+Windows machines should ensure that the `Virtualization` BIOS option is turned on.
 
 Download and install (in this order):
 
-1. VirtualBox 
-1. VirtualBox extensions
-1. Vagrant
-1. GitHub Desktop (Windows only)
+1. [VirtualBox](https://www.virtualbox.org)
+1. [VirtualBox extensions](http://download.virtualbox.org/virtualbox/5.0.14/Oracle_VM_VirtualBox_Extension_Pack-5.0.14-105127.vbox-extpack) (download link)
+1. [Vagrant](https://www.vagrantup.com)
+1. [GitHub Desktop](https://desktop.github.com) (Windows only)
 
 Open a console/shell:
 
@@ -34,7 +48,7 @@ Open a console/shell:
 - Mac: run the terminal program
 - Linux: create a console/shell window
 
-Clone this GitHub repository (that you are reading):
+Clone this GitHub repository:
 ```
 $ git clone https://github.com/davidoury/datalab-notebook
 ```
@@ -51,56 +65,62 @@ $ vagrant ssh datalab
 ```
 
 The prompt will change as you are now running a shell/console 
-_inside_ the virtual box you just created, called `datalab`.
+_inside_ the `datalab` virtual box.
 
-Become the super-user with this command.
-
+Become the root (super) user:
 ```
 sudo bash
 ```
 
-Update all programs installed in the virtual box. 
-
+Update all programs installed in the virtual box: 
 ```
 apt-get update
 ```
 
-Download and install the Docker program in the virtual box. 
-
+Download and install the Docker program in the virtual box: 
 ```
 curl -fsSL https://get.docker.com/ | sh
 ```
 
-Add the `vagrant` user to the `docker` group so the `vagrant` user can run docker commands.
+Add the `vagrant` user to the `docker` group so the `vagrant` user can run docker commands:
 ```
 usermod -aG docker vagrant
 ```
 
-Test your setup by running:
+Test your setup:
 ```
 $ docker run hello-world
 ```
 If you see the text `Hello from Docker` somewhere then all is well. 
 
+Create some useful files so you can stop and start your virtual box 
+and its notebook interface.
 ```
 $ tar Pxvf /vagrant/cron.d.tar.gz
 ```
 
-Now run: 
+Download and run the Jupyter container:
 ```
 $ /etc/cron.d/docker.sh
 ```
+This will take a little while. 
+[](If it does not complete you an simply rerun the command. 
+To rerun this command in another console you will need to change the working directory 
+to `datalab-notebook` then run)
 
 Point your browser to http://10.10.10.10:8888. 
 
 When you are done working shutdown the `datalab` virtual box from _VirtuaBox_
-or from a console/shell in the `datalab-notebook` directory:
+by safely stopping the machine and saving its state. 
+Alternately, you can use a console/shell where `datalab-notebook` is the working directory 
+and run:
 ```
 vagrant halt datalab
 ```
 
 
-## PLEASE IGNORE THIS SECTION
+
+## PLEASE IGNORE THIS SECTION --- IT CONTAINS OLD STUFF
 
 Download and install the _Docker Toolbox_. 
 See https://www.docker.com/products/docker-toolbox. 
