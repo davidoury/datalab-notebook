@@ -28,6 +28,12 @@ in the [Install and configure](#install-and-configure) section below.
 
 ## Install and configure 
 
+There are three components of this setup:
+
+1. _host_: this is your computer
+1. _virtual box_: created by Vagrant from the host
+1. _docker container_: created by Docker from the virtual box
+
 This section consists of instructions to build a Jupyter notebook 
 environment in which you can run Python and Spark. 
 This entails many downloads so using an ethernet connection will make 
@@ -136,8 +142,8 @@ when the `datalab` virtual box has started.
 
 ## Troubleshooting
 
-To destroy the `datalab` virtual box and start over again, run the following from a console
-with current directory set to `datalab-notebook`:
+To destroy the `datalab` virtual box and start over again, open a console/shell on the host, 
+set the current directory to `datalab-notebook` and run the following:
 ```
 $ vagrant destroy -f datalab
 ```
