@@ -1,6 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-# test
+# datalab virtual box
 
 Vagrant.configure(2) do |config|
 
