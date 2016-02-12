@@ -1,4 +1,4 @@
-## Data Lab notebook 
+# Data Lab notebook 
 
 This _Data Lab_ notebook is built from the Docker container
 `jupyter/pyspark-notebook` 
@@ -115,19 +115,35 @@ To shutdown or start the virtual box see the next section.
 
 ## Stopping and starting the virtual box
 
-When you are done working shutdown the `datalab` virtual box from _VirtuaBox_
-by safely stopping the machine and saving its state. 
-Alternately, you can use a console/shell where `datalab-notebook` is the working directory 
-and run:
+There are several options to stop/shutdown the `datalab` virtual box:
+
+1. Shutdown your computer.
+1. _VirtuaBox_: safely stop the machine and save its state
+1. _Console_: Set the current directory to `datalab-notebook` and run:
 ```
-vagrant halt datalab
+$ vagrant halt datalab
+```
+
+There are two options to start the `datalab` virtual box:
+
+1. _VirtualBox_: start the `datalab` virtual box 
+1. _Console_: Set the current directory to `datalab-notebook` and run:
+```
+$ vagrant up datalab
+```
+The notebook interface at http://10.10.10.10:8888 will be available 
+when the `datalab` virtual box has started. 
+
+## Troubleshooting
+
+To destroy the `datalab` virtual box and start over again, run the following from a console
+with current directory set to `datalab-notebook`:
+```
+$ vagrant destroy -f datalab
 ```
 
 
-
-
-
-## IGNORE THIS PLEASE
+## IGNORE THE REST PLEASE
 
 Download and install the _Docker Toolbox_. 
 See https://www.docker.com/products/docker-toolbox. 
@@ -197,148 +213,7 @@ upper left corner of the page.
 
 Continue with any of the following sections to run sample commands. 
 
-## Run some examples
-
-From the home screen create a Python 3 notebook 
-
-### In a Python Notebook
-
-0. Run the container as shown above.
-1. Open a Python 2 or 3 notebook.
-2. Create a `SparkContext` configured for local mode.
-
-For example, the first few cells in a Python 3 notebook might read:
-
-```python
-import pyspark
-sc = pyspark.SparkContext('local[*]')
-
-# do something to prove it works
-rdd = sc.parallelize(range(1000))
-rdd.takeSample(False, 5)
-```
-
-In a Python 2 notebook, prefix the above with the following code to ensure the local workers use Python 2 as well.
-
-```python
-import os
-os.environ['PYSPARK_PYTHON'] = 'python2'
-
-# include pyspark cells from above here ...
-```
-
-### In a R Notebook
-
-0. Run the container as shown above.
-1. Open a R notebook.
-2. Initialize `sparkR` for local mode.
-3. Initialize `sparkRSQL`.
-
-For example, the first few cells in a R notebook might read:
-
-```
-library(SparkR)
-
-sc <- sparkR.init("local[*]")
-sqlContext <- sparkRSQL.init(sc)
-
-# do something to prove it works
-data(iris)
-df <- createDataFrame(sqlContext, iris)
-head(filter(df, df$Petal_Width > 0.2))
-```
-
-### In a Scala Notebook
-
-0. Run the container as shown above.
-1. Open a Scala notebook.
-2. Use the pre-configured `SparkContext` in variable `sc`.
-
-For example:
-
-```
-val rdd = sc.parallelize(0 to 999)
-rdd.takeSample(false, 5)
-```
-
-## Connecting to a Spark Cluster on Mesos
-
-This configuration allows your compute cluster to scale with your data.
-
-0. [Deploy Spark on Mesos](http://spark.apache.org/docs/latest/running-on-mesos.html).
-1. Configure each slave with [the `--no-switch_user` flag](https://open.mesosphere.com/reference/mesos-slave/) or create the `jovyan` user on every slave node.
-2. Run the Docker container with `--net=host` in a location that is network addressable by all of your Spark workers. (This is a [Spark networking requirement](http://spark.apache.org/docs/latest/cluster-overview.html#components).)
-    * NOTE: When using `--net=host`, you must also use the flags `--pid=host -e TINI_SUBREAPER=true`. See https://github.com/jupyter/docker-stacks/issues/64 for details.
-3. Follow the language specific instructions below.
-
-### In a Python Notebook
-
-0. Open a Python 2 or 3 notebook.
-1. Create a `SparkConf` instance in a new notebook pointing to your Mesos master node (or Zookeeper instance) and Spark binary package location.
-2. Create a `SparkContext` using this configuration. 
-
-For example, the first few cells in a Python 3 notebook might read:
-
-```python
-import os
-# make sure pyspark tells workers to use python3 not 2 if both are installed
-os.environ['PYSPARK_PYTHON'] = '/usr/bin/python3'
-
-import pyspark
-conf = pyspark.SparkConf()
-
-# point to mesos master or zookeeper entry (e.g., zk://10.10.10.10:2181/mesos)
-conf.setMaster("mesos://10.10.10.10:5050")
-# point to spark binary package in HDFS or on local filesystem on all slave
-# nodes (e.g., file:///opt/spark/spark-1.5.1-bin-hadoop2.6.tgz) 
-conf.set("spark.executor.uri", "hdfs://10.10.10.10/spark/spark-1.5.1-bin-hadoop2.6.tgz")
-# set other options as desired
-conf.set("spark.executor.memory", "8g")
-conf.set("spark.core.connection.ack.wait.timeout", "1200")
-
-# create the context
-sc = pyspark.SparkContext(conf=conf)
-
-# do something to prove it works
-rdd = sc.parallelize(range(100000000))
-rdd.sumApprox(3)
-```
-
-To use Python 2 in the notebook and on the workers, change the `PYSPARK_PYTHON` environment variable to point to the location of the Python 2.x interpreter binary. If you leave this environment variable unset, it defaults to `python`.
-
-Of course, all of this can be hidden in an [IPython kernel startup script](http://ipython.org/ipython-doc/stable/development/config.html?highlight=startup#startup-files), but "explicit is better than implicit." :)
-
-### In a R Notebook
-
-0. Run the container as shown above.
-1. Open a R notebook.
-2. Initialize `sparkR` Mesos master node (or Zookeeper instance) and Spark binary package location.
-3. Initialize `sparkRSQL`.
-
-For example, the first few cells in a R notebook might read:
-
-```
-library(SparkR)
-
-# point to mesos master or zookeeper entry (e.g., zk://10.10.10.10:2181/mesos)\
-# as the first argument
-# point to spark binary package in HDFS or on local filesystem on all slave
-# nodes (e.g., file:///opt/spark/spark-1.5.1-bin-hadoop2.6.tgz) in sparkEnvir
-# set other options in sparkEnvir
-sc <- sparkR.init("mesos://10.10.10.10:5050", sparkEnvir=list(
-    spark.executor.uri="hdfs://10.10.10.10/spark/spark-1.5.1-bin-hadoop2.6.tgz",
-    spark.executor.memory="8g"
-    )
-)
-sqlContext <- sparkRSQL.init(sc)
-
-# do something to prove it works
-data(iris)
-df <- createDataFrame(sqlContext, iris)
-head(filter(df, df$Petal_Width > 0.2))
-```
-
-## Debugging
+## Docker debugging
 
 We may need these commands. 
 Just ignore this section and these commands for now. 
