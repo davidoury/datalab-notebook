@@ -1,67 +1,83 @@
-## Data Lab notebook = Jupyter notebook with Python, Scala, R, Spark and Mesos 
+## Data Lab notebook 
 
-For now the "Data Lab notebook" is the docker container 
-`jupyter/pyspark-notebook`. 
-In time I hope to add to and modify the container to fit 
-our needs at the Data Lab, 
-but for now this is exactly what we need. 
-It is part of the GitHub repository 
+This notebook is based on the Docker container
+`jupyter/pyspark-notebook` 
+which is a Jupyter notebook with Python and Spark. 
+
+For details on that notebook see 
 https://github.com/jupyter/docker-stacks. 
 Look for the folder `pyspark-notebook`
 or follow [this link](https://github.com/jupyter/docker-stacks/tree/master/pyspark-notebook).
 
 To install and then use the notebook follow the directions 
-in the section titled [Create the container](#create-the-container) below.
-
-
-Most of the following text is copied directly from the page linked above.
-
-## What it Gives You
-
-* Jupyter Notebook 4.0.x
-* Conda Python 3.x and Python 2.7.x environments
-* Conda R 3.2.x environment
-* Scala 2.10.x
-* pyspark, pandas, matplotlib, scipy, seaborn, scikit-learn pre-installed for Python
-* ggplot2, rcurl preinstalled for R
-* Spark 1.5.1 for use in local mode or to connect to a cluster of Spark workers
-* Mesos client 0.22 binary that can communicate with a Mesos master
-* Unprivileged user `jovyan` (uid=1000, configurable, see options) in group `users` (gid=100) with ownership over `/home/jovyan` and `/opt/conda`
-* [tini](https://github.com/krallin/tini) as the container entrypoint and [start-notebook.sh](../minimal-notebook/start-notebook.sh) as the default command
-* Options for HTTPS, password auth, and passwordless `sudo`
+in the [Create](#create) section below.
 
 ## Documentation links
 
 - [Spark 1.5.1](https://spark.apache.org/docs/1.5.1/)
 - [Spark 1.5.1 Quick Start](https://spark.apache.org/docs/1.5.1/quick-start.html) (start here)
 
-## Create the container
+## Create 
 
 Use an ethernet connection if possible. 
 
-Download and install:
+Download and install (in this order):
 
 1. VirtualBox 
 1. VirtualBox extensions
 1. Vagrant
 1. GitHub Desktop
 
-Windows: run the _Git Shell_ (there should be an icon on your desktop). 
+Open a console/shell:
 
-Mac: run the terminal program
+- Windows: run the _Git Shell_ (there should be an icon on your desktop). 
+- Mac: run the terminal program
+- Linux: create a console/shell window
 
-Linux: create a console/shell window
+Clone this GitHub repository (that you are reading):
+```
+$ git clone https://github.com/davidoury/datalab-notebook
+```
 
-1. `git clone ...`
-1. `cd datalab`
-1. `vagrant up`
-1. `vagrant ssh datalab`
-1. `sudo bash`
-1. `apt-get update`
-1. `curl -fsSL https://get.docker.com/ | sh`
-1. `usermod -aG docker vagrant`
+Change to the `datalab-notebook` sub-directory (just created) and create the virtual box called `datalab`:
+```
+$ cd datalab-notebook
+$ vagrant up
+```
+
+```
+$ vagrant ssh datalab
+```
+
+The prompt will change as you are now running a shell/console inside the virtual box you just created, which is called `datalab`.
+
+Become the super-user with this command.
+
+```
+sudo bash
+```
+
+Update all programs installed in the virtual box. 
+
+```
+apt-get update
+```
+
+Download and install the Docker program in the virtual box. 
+
+```
+curl -fsSL https://get.docker.com/ | sh
+```
+
+Add the `vagrant` user to the `docker` group so you can run docker commands as that user.
+```
+usermod -aG docker vagrant
+```
 1. `docker run hello-world`
 1. `docker run -d -p 8888:8888  -e PASSWORD="YOURPASS"  -v /vagrant:/home/jovyan/work  jupyter/pyspark-notebook`
+
+docker run -d -p 8888:8888 -p 8080:8080 -p 4040:4040 -p 7077:7077 -e PASSWORD="hi"  -v /vagrant:/home/jovyan/work  jupyter/pyspark-notebook
+
 
 ## PLEASE IGNORE THIS SECTION
 
