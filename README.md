@@ -54,13 +54,14 @@ Linux: create a console/shell window
 
 1. `git clone ...`
 1. `cd datalab`
-1. `vagrant box update`
 1. `vagrant up`
 1. `vagrant ssh datalab`
 1. `sudo bash`
 1. `apt-get update`
 1. `curl -fsSL https://get.docker.com/ | sh`
 1. `usermod -aG docker vagrant`
+1. `docker run hello-world`
+1. `docker run -d -p 8888:8888  -e PASSWORD="YOURPASS"  -v /vagrant:/home/jovyan/work  jupyter/pyspark-notebook`
 
 ## PLEASE IGNORE THIS SECTION
 
