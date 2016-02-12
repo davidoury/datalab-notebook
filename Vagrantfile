@@ -15,7 +15,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provider "virtualbox" do |vb|
-
-  vb.gui = false # No VirtualBox GUI
+  	vb.gui = false # No VirtualBox GUI
+	end
 
 end
