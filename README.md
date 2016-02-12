@@ -1,6 +1,6 @@
 ## Data Lab notebook 
 
-This _Data Lab_ notebook is based on the Docker container
+This _Data Lab_ notebook is built from the Docker container
 `jupyter/pyspark-notebook` 
 which is a Jupyter notebook from which you can run Python and Spark. 
 For details on the container see 
@@ -17,23 +17,27 @@ The primary reason for this setup is that the host operating system (Mac, Window
 needs only to be able to complete the first step and allow the user to log into the virtual box. 
 In addition, the configuration and management of the virtual box is (should be?) identical
 regardless of host operating system.
-I hope to avoid many headaches previously encountered.
 
-To install and then use the notebook follow the directions 
-in the [Create](#create) section below.
+To install and configure the notebook follow the directions 
+in the [Install and configure](#install-and-configure) section below.
 
 ## Documentation links
 
 - [Spark 1.5.1](https://spark.apache.org/docs/1.5.1/)
 - [Spark 1.5.1 Quick Start](https://spark.apache.org/docs/1.5.1/quick-start.html) (start here)
 
-## Create 
+## Install and configure 
 
-This section includes instructions to build a Jupyter notebook environment 
-in which you can run Python and Spark. 
-This entails many downloads so using an ethernet connection will make them quicker and potentially less problematic.
+This section consists of instructions to build a Jupyter notebook 
+environment in which you can run Python and Spark. 
+This entails many downloads so using an ethernet connection will make 
+them quicker and potentially less problematic.
 
-Windows machines should ensure that the `Virtualization` BIOS option is turned on.
+These instructions have been written for Mac and Windows computers. 
+If you are running Ubuntu 14.04 then you don't need to create the 
+virtual box, but would have to adapt these commands to your system.
+
+Windows machines should have the `Virtualization` BIOS option turned on.
 
 Download and install (in this order):
 
@@ -46,7 +50,6 @@ Open a console/shell:
 
 - Windows: run the _Git Shell_ (there should be an icon on your desktop). 
 - Mac: run the terminal program
-- Linux: create a console/shell window
 
 Clone this GitHub repository:
 ```
@@ -59,20 +62,20 @@ $ cd datalab-notebook
 $ vagrant up datalab
 ```
 
-Now run a shell/console on the newly created `datalab` virtual box:
+Run a shell/console on the newly created `datalab` virtual box:
 ```
 $ vagrant ssh datalab
 ```
 
-The prompt will change as you are now running a shell/console 
-_inside_ the `datalab` virtual box.
+The prompt is different that the previous one as you are now 
+running a shell/console _inside_ the `datalab` virtual box.
 
 Become the root (super) user:
 ```
 sudo bash
 ```
 
-Update all programs installed in the virtual box: 
+Update all programs installed on the virtual box: 
 ```
 apt-get update
 ```
@@ -104,11 +107,13 @@ Download and run the Jupyter container:
 $ /etc/cron.d/docker.sh
 ```
 This will take a little while. 
-[](If it does not complete you an simply rerun the command. 
-To rerun this command in another console you will need to change the working directory 
-to `datalab-notebook` then run)
 
 Point your browser to http://10.10.10.10:8888. 
+In the upper left corner you should see "jupyter" alongside its logo. 
+
+To shutdown or start the virtual box see the next section. 
+
+## Stopping and starting the virtual box
 
 When you are done working shutdown the `datalab` virtual box from _VirtuaBox_
 by safely stopping the machine and saving its state. 
@@ -120,7 +125,9 @@ vagrant halt datalab
 
 
 
-## PLEASE IGNORE THIS SECTION --- IT CONTAINS OLD STUFF
+
+
+## IGNORE THIS PLEASE
 
 Download and install the _Docker Toolbox_. 
 See https://www.docker.com/products/docker-toolbox. 
