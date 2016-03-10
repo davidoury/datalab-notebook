@@ -43,6 +43,7 @@ Follow the steps below to install the notebook natively with Docker.
 ### Step 1 - downloads and installs
 
 - Download and install _VirtualBox_ --- https://www.virtualbox.org
+- Download and install _VirtualBox Extension Pack_ --- https://www.virtualbox.org/wiki/Downloads
 - Download and install _Docker Toolbox_ --- https://www.docker.com/products/docker-toolbox
 
 ### Step 1 - run _Docker Quickstart Terminal_
@@ -84,9 +85,13 @@ but replace "[YOUR DIRECTORY]" with the full path of a directory on your laptop.
 ```
 $ docker run -d -p 8888:8888 -v [YOUR DIRECTORY]:/home/jovyan/work jupyter/pyspark-notebook
 ```
-For instance, the command that I use is
+For instance, the command that I use is on my Mac is
 ```
 $ docker run -d -p 8888:8888 -v /Users/david:/home/jovyan/work jupyter/pyspark-notebook
+```
+The command that I use is on Windows is
+```
+$ docker run -d -p 8888:8888 -v /c/Users/DOURY:/home/jovyan/work jupyter/pyspark-notebook
 ```
 
 If this command is successful you should see a 64 character string 
