@@ -1,21 +1,143 @@
 # Data Lab notebook 
 
+The Data Lab notebook is an environment that runs:
+
+- Jupyter notebook, Python and Spark 
+
 This _Data Lab_ notebook is built from the Docker container
 `jupyter/pyspark-notebook` 
 which is a Jupyter notebook from which you can run Python and Spark. 
+The reason behind running this environment in a Docker container is 
+that everyone one who is using this setup runs the same environment, 
+which makes it easier to work together and share code. 
+
 For details on the container see 
 https://github.com/jupyter/docker-stacks. 
 Look for the folder `pyspark-notebook`
 or follow [this link](https://github.com/jupyter/docker-stacks/tree/master/pyspark-notebook).
 
-In order that this notebook works on as many OSes as possible, I've taken the approach of:
+There are two ways to install the notebook: 
 
+1. Using Docker natively to run `jupyter/pyspark-notebook`. 
+    See section [Native Docker install](#native-docker-install) below. 
+1. Using Vagrant to create a virtual machine in which 
+    Docker is loaded and which runs `jupyter/pyspark-notebook`
+    See section [Vagrant Docker install](#vagrant-docker-install) below. 
+    
+The reason for taking these two approaches is that certain laptops 
+have had trouble with one of these approaches, but so far no laptops 
+have had trouble with both. 
+    
+## Native Docker install
+
+An overview of the procedure is:
+
+1. Install Docker
+1. Run the Docker Quickstart terminal
+1. Install the `jupyter/pyspark-notebook` container
+1. Run the `jupyter/pyspark-notebook` container
+1. Open the notebook interface with your browser
+
+Follow the steps below to install the notebook natively with Docker. 
+
+### Step 1 - downloads and installs
+
+- Download and install _VirtualBox_ --- https://www.virtualbox.org
+- Download and install _Docker Toolbox_ --- https://www.docker.com/products/docker-toolbox
+
+### Step 1 - run _Docker Quickstart Terminal_
+
+- Run the _Docker Quickstart Terminal_ either at the end of the install above 
+  or as an application if Docker is already installed. 
+
+If this is successful you will see the following in a terminal window:
+
+```
+docker is configured to use the default machine with IP 192.168.99.100
+For help getting started, check out the docs at https://docs.docker.com
+```
+
+though your IP address may be different. 
+
+### Step 1 - Pull (download) the docker image
+
+- From the terminal window opened by the _Docker Quickstart Terminal_ type the command: 
+
+```
+$ docker pull jupyter/pyspark-notebook
+```
+The dollar sign indicates that this is a shell command and should not be typed.
+This command will take several minutes to complete. 
+
+You should see the following if the command is successful. 
+
+```
+Status: Downloaded newer image for jupyter/pyspark-notebook:latest
+```
+
+### Step 1 - Run the container
+
+Type the following into the terminal window, 
+but replace "[YOUR DIRECTORY]" with the full path of a directory on your laptop. 
+. 
+
+```
+$ docker run -d -p 8888:8888 -v [YOUR DIRECTORY]:/home/jovyan/work jupyter/pyspark-notebook
+```
+For instance, the command that I use is
+```
+$ docker run -d -p 8888:8888 -v /Users/david:/home/jovyan/work jupyter/pyspark-notebook
+```
+
+If this command is successful you should see a 64 character string 
+
+```
+f907da189c38087329de920c724ead41e2e1faa0bae4291f9f5f8b3dcdd1d234
+```
+though your individual characters may differ. 
+
+Run the command 
+```
+$ docker-machine ip default
+```
+and record the IP address that it returns. 
+For example, my IP address is `192.168.99.100`. 
+You will use this in the next step. 
+ 
+### Step 1 - open notebook in browser
+
+Point your browser to 
+
+- http://192.168.99.100:8888
+
+if that is the IP address from previous step. 
+Replace this IP `192.168.99.100` with your address if they differ. 
+
+## Vagrant Docker Install
+
+1. Install Vagrant
 1. Creating an Ubuntu virtual box with Vagrant
-1. Running Docker from within this virtual box 
+1. Install and run Docker inside this virtual machine
+1. Install the `jupyter/pyspark-notebook` container (in the virtual machine)
+1. Run the `jupyter/pyspark-notebook` container (in the virtual machine)
+
+
+### Step 1 - 
+
+### Step 1 - 
+
+### Step 1 - 
+
+### Step 1 - 
+
+asdf
+
+
+
 
 The primary reason for this setup is that the host operating system (Mac, Windows 7/8/10) 
-needs only to be able to complete the first step and allow the user to log into the virtual box. 
-In addition, the configuration and management of the virtual box is (should be?) identical
+should only need to complete the first step and allow the user to log into the virtual box. 
+In addition, the configuration and management of the virtual box should be identical
 regardless of host operating system.
 
 To install and configure the notebook follow the directions 
@@ -114,7 +236,7 @@ $ /etc/cron.d/docker.sh
 ```
 This will take a little while. 
 
-Point your browser to http://10.10.10.10:8888. 
+Point your browser to http://10.10.10.10:8888. The password is "hi".
 In the upper left corner you should see "jupyter" alongside its logo. 
 
 To shutdown or start the virtual box see the next section. 
@@ -148,6 +270,17 @@ set the current directory to `datalab-notebook` and run the following:
 $ vagrant destroy -f datalab
 ```
 
+Then you can start from the first instruction in the 
+[Install and configure](#install-and-configure) section above.
+
+INCOMPLETE --- I'LL FIX THIS
+- remove old datalab-notebook folder
+- stop all running virtual boxes 
+
+- git pull the folder containing the datalab-notebook directory
+- or
+- download text from FB
+- place in datalab-notebook/Notebooks directory
 
 ## IGNORE THE REST PLEASE
 
