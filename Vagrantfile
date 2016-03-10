@@ -25,7 +25,6 @@ Vagrant.configure(2) do |config|
 	config.vm.provision "shell", inline: "echo 2; sudo apt-get install -y apt-transport-https ca-certificates"
 	config.vm.provision "shell", inline: "echo 3; sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D"
 	config.vm.provision "shell", inline: "echo 4; sudo echo deb https://apt.dockerproject.org/repo ubuntu-trusty main > /etc/apt/sources.list.d/docker.list"
-	config.vm.provision "shell", inline: "echo 5a"
 	config.vm.provision "shell", inline: "echo 5; sudo apt-get update"
 	config.vm.provision "shell", inline: "echo 6; sudo apt-get purge lxc-docker"
 	config.vm.provision "shell", inline: "echo 7; sudo apt-get update"
@@ -35,7 +34,9 @@ Vagrant.configure(2) do |config|
 	config.vm.provision "shell", inline: "echo 11; sudo apt-get install -y docker-engine"
 	config.vm.provision "shell", inline: "echo 12; sudo docker run hello-world"
 	config.vm.provision "shell", inline: "echo 13; sudo usermod -aG docker vagrant"
-#
+	config.vm.provision "shell", inline: "echo 14; cd /; tar xvf /vagrant/cron.d.tar.gz"
+	
+#For Centos
 #config.vm.provision "shell", inline: "echo 1; sudo yum update --exclude=nfs-utils -y"
 #config.vm.provision "file",  source: "docker.repo", destination: "/tmp/docker.repo"
 #config.vm.provision "shell", inline: "sudo cp /tmp/docker.repo /etc/yum.repos.d/docker.repo"
