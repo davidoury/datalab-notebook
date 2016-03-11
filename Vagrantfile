@@ -37,6 +37,7 @@ Vagrant.configure(2) do |config|
 	config.vm.provision "shell", inline: "echo 13; sudo usermod -aG docker vagrant"
 	config.vm.provision "shell", inline: "echo 14; sudo docker pull jupyter/pyspark-notebook"
 	config.vm.provision "shell", inline: "echo 15; cd /; tar xvf /vagrant/cron.d.tar.gz"
+	config.vm.provision "shell", inline: "echo 16; /etc/cron.d/docker.sh"
 	
 #For Centos
 #config.vm.provision "shell", inline: "echo 1; sudo yum update --exclude=nfs-utils -y"
