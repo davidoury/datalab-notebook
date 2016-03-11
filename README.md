@@ -1,6 +1,6 @@
 # Data Lab notebook 
 
-The Data Lab notebook is an environment that runs:
+The Data Lab  notebook is an environment that runs:
 
 - Jupyter notebook, Python and Spark 
 
