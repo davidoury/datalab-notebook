@@ -42,14 +42,16 @@ Follow the steps below to install the notebook natively with Docker.
 
 ### Step 1 - downloads and installs
 
-- Download and install _VirtualBox_ --- https://www.virtualbox.org
-- Download and install _VirtualBox Extension Pack_ --- https://www.virtualbox.org/wiki/Downloads
-- Download and install _Docker Toolbox_ --- https://www.docker.com/products/docker-toolbox
+Download and install
 
-### Step 1 - run _Docker Quickstart Terminal_
+- _VirtualBox_ --- https://www.virtualbox.org
+- _VirtualBox Extension Pack_ --- https://www.virtualbox.org/wiki/Downloads
+- _Docker Toolbox_ --- https://www.docker.com/products/docker-toolbox
 
-- Run the _Docker Quickstart Terminal_ either at the end of the install above 
-  or as an application if Docker is already installed. 
+### Step 2 - run _Docker Quickstart Terminal_
+
+Run the _Docker Quickstart Terminal_ either at the end of the install above 
+or as an application if Docker is already installed. 
 
 If this is successful you will see the following in a terminal window:
 
@@ -60,10 +62,9 @@ For help getting started, check out the docs at https://docs.docker.com
 
 though your IP address may be different. 
 
-### Step 1 - Pull (download) the docker image
+### Step 3 - Pull (download) the docker image
 
-- From the terminal window opened by the _Docker Quickstart Terminal_ type the command: 
-
+From the terminal window (opened by the _Docker Quickstart Terminal_) type the following command.
 ```
 $ docker pull jupyter/pyspark-notebook
 ```
@@ -76,30 +77,40 @@ You should see the following if the command is successful.
 Status: Downloaded newer image for jupyter/pyspark-notebook:latest
 ```
 
-### Step 1 - Run the container
+### Step 4 - Setup a notebook directory
+
+Create a directory called `Notebooks` in your filesystem.
+The easiest way to do this is to type (from the _Quickstart Terminal_) the following commands. 
+```
+$ mkdir Notebooks
+$ cd Notebooks
+$ pwd
+```
+Save the output from the `pwd` command for the next step. 
+This is the directory where your notebooks will be saved. 
+
+### Step 5 - Run the container
 
 Type the following into the terminal window, 
-but replace "[YOUR DIRECTORY]" with the full path of a directory on your laptop. 
-. 
-
+but replace "[YOUR NOTEBOOK DIRECTORY]" with the output from the `pwd` command above.
 ```
-$ docker run -d -p 8888:8888 -v [YOUR DIRECTORY]:/home/jovyan/work jupyter/pyspark-notebook
+$ docker run -d -p 8888:8888 -v [YOUR NOTEBOOK DIRECTORY]:/home/jovyan/work jupyter/pyspark-notebook
 ```
 For instance, the command that I use is on my Mac is
 ```
-$ docker run -d -p 8888:8888 -v /Users/david:/home/jovyan/work jupyter/pyspark-notebook
+$ docker run -d -p 8888:8888 -v /Users/david/Notebooks:/home/jovyan/work jupyter/pyspark-notebook
 ```
 The command that I use is on Windows is
 ```
-$ docker run -d -p 8888:8888 -v /c/Users/DOURY:/home/jovyan/work jupyter/pyspark-notebook
+$ docker run -d -p 8888:8888 -v /c/Users/DOURY/Notebooks:/home/jovyan/work jupyter/pyspark-notebook
 ```
-
 If this command is successful you should see a 64 character string 
-
 ```
 f907da189c38087329de920c724ead41e2e1faa0bae4291f9f5f8b3dcdd1d234
 ```
 though your individual characters may differ. 
+
+Windows users may need to create a directory 
 
 Run the command 
 ```
@@ -109,7 +120,7 @@ and record the IP address that it returns.
 For example, my IP address is `192.168.99.100`. 
 You will use this in the next step. 
  
-### Step 1 - open notebook in browser
+### Step 6 - open notebook in browser
 
 Point your browser to 
 
@@ -129,55 +140,18 @@ Replace this IP `192.168.99.100` with your address if they differ.
 
 ### Step 1 - 
 
-### Step 1 - 
-
-### Step 1 - 
-
-### Step 1 - 
-
-asdf
-
-
-
-
-The primary reason for this setup is that the host operating system (Mac, Windows 7/8/10) 
-should only need to complete the first step and allow the user to log into the virtual box. 
-In addition, the configuration and management of the virtual box should be identical
-regardless of host operating system.
-
-To install and configure the notebook follow the directions 
-in the [Install and configure](#install-and-configure) section below.
-
-## Documentation links
-
-- [Spark 1.5.1](https://spark.apache.org/docs/1.5.1/)
-- [Spark 1.5.1 Quick Start](https://spark.apache.org/docs/1.5.1/quick-start.html) (start here)
-
-## Install and configure 
-
-There are three components of this setup:
-
-1. _host_: this is your computer
-1. _virtual box_: created by Vagrant from the host
-1. _docker container_: created by Docker from the virtual box
-
-This section consists of instructions to build a Jupyter notebook 
-environment in which you can run Python and Spark. 
-This entails many downloads so using an ethernet connection will make 
-them quicker and potentially less problematic.
-
-These instructions have been written for Mac and Windows computers. 
-If you are running Ubuntu 14.04 then you don't need to create the 
-virtual box, but would have to adapt these commands to your system.
-
-Windows machines should have the `Virtualization` BIOS option turned on.
-
 Download and install (in this order):
 
-1. [VirtualBox](https://www.virtualbox.org)
-1. [VirtualBox extensions](http://download.virtualbox.org/virtualbox/5.0.14/Oracle_VM_VirtualBox_Extension_Pack-5.0.14-105127.vbox-extpack) (download link)
 1. [Vagrant](https://www.vagrantup.com)
 1. [GitHub Desktop](https://desktop.github.com) (Windows only)
+
+### Step 1 - 
+
+```
+$ vagrant up datalab
+```
+
+### Step 1 - 
 
 Open a console/shell:
 
@@ -189,11 +163,15 @@ Clone this GitHub repository:
 $ git clone https://github.com/davidoury/datalab-notebook
 ```
 
+### Step 1 - 
+
 Change to the `datalab-notebook` sub-directory (just created) and create the virtual box called `datalab`:
 ```
 $ cd datalab-notebook
 $ vagrant up datalab
 ```
+
+### Step 1 - 
 
 Run a shell/console on the newly created `datalab` virtual box:
 ```
@@ -202,6 +180,8 @@ $ vagrant ssh datalab
 
 The prompt is different that the previous one as you are now 
 running a shell/console _inside_ the `datalab` virtual box.
+
+### Step 1 - 
 
 Become the root (super) user:
 ```
