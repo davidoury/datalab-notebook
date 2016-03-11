@@ -21,6 +21,7 @@ Vagrant.configure(2) do |config|
   	vb.gui = false # No VirtualBox GUI
 	end
 	
+	#For ubuntu/trusty64
 	config.vm.provision "shell", inline: "echo 1; sudo apt-get update"
 	config.vm.provision "shell", inline: "echo 2; sudo apt-get install -y apt-transport-https ca-certificates"
 	config.vm.provision "shell", inline: "echo 3; sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D"
