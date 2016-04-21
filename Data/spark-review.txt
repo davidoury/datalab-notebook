@@ -1,0 +1,34 @@
+Apache Spark is an execution engine that broadens the type of computing workloads Hadoop can handle, while also tuning the performance of the big data framework.
+Hadoop specialist Cloudera recently announced that it will offer commercial support for Apache Spark, which is available as part of Cloudera's Hadoop-powered Enterprise Data Hub. But why should businesses care about Spark?
+Apache Spark has numerous advantages over Hadoop's MapReduce execution engine, in both the speed with which it carries out batch processing jobs and the wider range of computing workloads it can handle.
+FASTER
+Spark is able to execute batch-processing jobs between 10 to 100 times faster than the MapReduce engine according to Cloudera, primarily by reducing the number of writes and reads to disc.
+
+READ THIS
+
+Hadoop and Big Data, "Stratafied"
+As Hadoop moves beyond MapReduce, an Enterprise focus, in-memory technology and accessible machine learning are the next frontiers.
+		Read More
+"You have map and reduce tasks and after that there's a synchronisation barrier and you persist all of the data to disc," said Mark Grover, Hadoop engineer for Cloudera.
+While this feature was designed to allow a job to be recovered in case of failure, "the side effect of that is that we weren't leveraging the memory of the cluster to the fullest", he said.
+"What Spark really does really well is this concept of an Resilient Distributed Dataset (RDD), which allows you to transparently store data on memory and persist it to disc if it's needed.
+"But there's no synchronisation barrier that's slowing you down. The usage of memory makes the system and the execution engine really fast."
+
+Learn SQL Server Aboard a Cruise Ship. Enter now!
+Enter to win free tickets on the SQL Cruise, departing from Miami, FL, January 30 - February 6, 2016. Sweepstakes ends soon!
+Sponsored by Microsoft
+In a real world test of Spark's performance in batch Cloudera says a large Silicon Valley internet company saw a three times speed increase after porting a single MapReduce job implementing feature extraction in a model training pipeline.
+The downside of data not always being copied to disc during jobs is that if multiple nodes go down the RDD whose computation failed needs to be recomputed from its parent RDDs, although Grover said the lost time is offset by each processing job taking less time on Spark than on MapReduce.
+REAL TIME STREAM PROCESSING
+Rather than just processing a batch of stored data after the fact, as is the case with MapReduce, Spark can also manipulate data in real time using Spark Streaming.
+This capability allows applications to pass data through a software function — for example, to carry out analytics, as it is collected.
+As well as stream processing, Spark can also be used for graph processing, where relationships in data between entities, say people and objects, are mapped out. The Spark engine can also be used with existing machine learning code libraries, to allow machine learning to be carried out on data stored in Hadoop clusters.
+SIMPLER MANAGEMENT
+Being able to carry out batch, streaming and machine learning on the same cluster of data can allow organisations to simplify the infrastructure they use for data processing.
+Today, many companies use MapReduce to generate reports and answer historical queries, and deploy a separate system for stream processing to chart key metrics in real-time. This approach requires organisations to maintain and manage two different systems, as well as to develop applications for two different computation models.
+Implementing both batch and stream processing on top of Spark could remove much of this complexity, and allow organisations to simplify deployment, maintenance and application development.
+"Spark is one execution engine that you can use to leverage multiple different types of workloads," Grover said.
+"So if you have interactions between two workloads they are all in the same process. It makes the management and the security of running such a workload very easy."
+Grover gave the example of how Spark could be used on a streaming video website, to provide real-time and batch clickstream analysis to build customer profiles, as well as to run the machine learning algorithms powering the video recommendation engine.
+Companies using Spark include Chinese search giant Baidu, local deal portal Groupon, security firm Trend Micro and Yahoo!.
+A set of APIs for the Spark execution engine is available for Java, Python and Scala – which allows developers to write applications that can run on top of Spark in these languages. Spark can interface with data in the HDFS (Hadoop File System), the HBase Hadoop database, the Cassandra data store and several other storage layers.
